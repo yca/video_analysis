@@ -1,0 +1,56 @@
+== Papers ==
+
+Niaz and Merialdo merges several classes to using their semantic information. They report improved results using Trecvid 2010 dataset. [1] In another paper [2] of them, they report improved results with position coding of features over the standard BOW implementation. They report their results using Trecvid 2007 dataset. In a different paper of them, they divide label space into binary trees to improve BOW classification accuracy [5]. They report on Trecvid 2010 and 2013 SIN datasets.
+
+Strat,Lambert and Benoit integrate motion information into generic Bag-Of-Words algorithm [3]. They report their results on Trecvid 2012 SIN dataset.
+
+Dehghan, Idress and Shah create a machine discovered "Dictionary of Visually-distinct Elements", called DOVE, which do not include any semantic information. Then they form a relationship with high-level semantic concepts and their DOVE. They report their results on Trecvid 2013 SIN and MED datasets. Their proposed method outperforms many state-of-the-art implementations. [4]
+
+An interesting work is done by Feichtenhofer, Pinz and Wildes [6]. They work on a new scene recognition category named "Dynamic Scene Recognition". They do not use SIFT features, instead they extract their spatiotemporal image features and create a BoW of these so called space-time features. They report their results on Maryland and YUPENN datasets and they report better results compared to LLC.
+
+Shao, Liu and Xeulong Li learns their features using genetic programming [10]. Their work shows great accuracy(%80) on Caltech-101 database.
+
+== State of The Art on Caltech-101 ==
+
+According to [7], current state of the art is [8]. In fact [8] reports %83.28 accuracy on Caltech-101 database. Second best performer according to [8] is Yang[9]. In fact Yang [9] is used by comparison at [6] and in various other papers. For comparison, our SIU baseline Lazebnik performed %64.6 on this database. [7] reported %81.6 performance in this dataset as well. An interesting contribution comes from [10]; they report %80 accuracy on Caltech-101 dataset. [11] reports %76.42 with a similar database setup, namely training on 30 and testing on the rest. In a very recent study %79.54 accuracy is reported [12].
+
+== References: ==
+
+[1] Usman Niaz and Bernard Merialdo. Leveraging from group classification for video concept detection. 2013 11TH INTERNATIONAL WORKSHOP ON CONTENT-BASED MULTIMEDIA INDEXING, 2013
+
+[2] Usman Niaz and Bernard Merialdo. EXPLORING INTRA-BOW STATISTICS FOR IMPROVING VISUAL CATEGORIZATION, 2013 WIAMIS
+
+[3] Sabin Tiberius Strat and Alexandre Benoit and Patrick Lambert. Bags of Trajectory Words for Video Indexing, 2013
+
+[4] Afshin Dehghan, Haroon Idress and Mubarak Shah. Improving Semantic Concept Detection through the Dictionary of Visually-distinct Elements, 2014 IEEE Conference on Computer Vision and Pattern Recognition, 2014
+
+[5] Usman Niaz and Bernard Merialdo. IMPROVING VIDEO CONCEPT DETECTION THROUGH LABEL SPACE PARTITIONING, 2014 ICME
+
+[6] Christoph Feichtenhofer, Axel Pinz and Richard P. Wildes, Bags of Spacetime Energies for Dynamic Scene Recognition, 2014 IEEE Conference on Computer Vision and Pattern Recognition, 2014
+
+[7] Leivas Oliveira, G.; Nascimento, E.R.; Wilson Vieira, A. Sparse Spatial Coding: A Novel Approach to Visual Recognition,  Image Processing, IEEE Transactions on, 2014
+
+[8] Kulkarni, N.; Baoxin Li, Discriminative affine sparse codes for image classification, Computer Vision and Pattern Recognition (CVPR), 2011 IEEE Conference on, 2011
+
+[9] J. Wang, J. Yang, K. Yu, F. Lv, T. Huang, and Y. Gong. Locality-constrained linear coding for image classification. In Computer Vision and Pattern Recognition (CVPR), 2010 IEEE Conference on, pages 3360-3367. IEEE, 2010. 1609, 1613, 1614
+
+[10] Ling Shao; Li Liu; Xuelong Li, Feature Learning for Image Classification Via Multiobjective Genetic Programming. Neural Networks and Learning Systems, IEEE Transactions on, 2014.
+
+[11] Ming Shao; Sheng Li; Tongliang Liu; Dacheng Tao; Huang, T.S.; Yun Fu. Learning relative features through adaptive pooling for image classification. ICME, 2014
+
+[12] Hong Han, Qiqiang Han, Xiaojun Li and Jianyin Gu, Hierarchical spatial pyramid max pooling based on SIFT features and sparse coding for image classification. Computer Vision, IET, 2013
+
+Links:
+
+[1] http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6576577
+[2] http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6616130
+[3] http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6849820
+[4] http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6909727
+[5] http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6890258
+[6] http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6909739
+[7] http://ieeexplore.ieee.org/xpls/icp.jsp?arnumber=6800007
+[8] http://ieeexplore.ieee.org/xpls/icp.jsp?arnumber=5995701
+[9]
+[10] http://ieeexplore.ieee.org/xpls/icp.jsp?arnumber=6683022
+[11] http://ieeexplore.ieee.org/xpls/icp.jsp?arnumber=6890269
+[12] http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6519170

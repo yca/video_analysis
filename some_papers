@@ -1,0 +1,3 @@
+http://www-nlpir.nist.gov/projects/tvpubs/tv7.papers/ucf.pdf : 
+
+Interesting for fusion of color, edge and patch features. Uses different cost weights(svm) for different classes. Uses trecvid 2007.
