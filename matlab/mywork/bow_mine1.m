@@ -1,27 +1,22 @@
-classdef bow_mine1 < bow_model
+classdef bow_mine1 < vlfeat_bow
     methods
         function bow = bow_mine1(database_path)
-            bow = bow@bow_model(database_path, '*.mat');
-        end
-        %creates sift descriptors for the entire database and saves in
-        %target folder
-        function create_sift_desc(bow)
+            bow = bow@vlfeat_bow(database_path);
+            bow.imp_name = 'mine1';
         end
         
-        function create_image_pyramids(images, dict, L)
-        end
-        
-        %creates bow descriptors for all images in the database
-        function pyramids = create_pyramids(bow, dictionary, L)
+        function pyramids = create_image_pyramids(bow, images, dictionary, L)
             dictSize = size(dictionary, 1);
             binsHigh = 2^(L-1);
-            pyramid_all = zeros(length(bow.database.path),dictSize*sum((2.^(0:(L-1))).^2));
-
-            %H_all = zeros(dictSize, length(database.path));
-            for iter1 = 1:length(bow.database.path)
-                fpath = database.path{iter1};
+            pyramids = zeros(length(images),dictSize*sum((2.^(0:(L-1))).^2));
+            
+            for iter1 = 1:length(images)
+                fpath = images{iter1};
+                fpath = strrep(fpath, 'images/', 'data/');
+                fpath = strrep(fpath, '.jpg', '.mat');
                 load(fpath);
 
+                feaSet.feaArr = double(feaSet.feaArr);
                 %dist_mat = sp_angle2(feaSet.feaArr', dictionary);
                 dist_mat = sp_dist2(feaSet.feaArr', dictionary);
                 [~, min_ind] = min(dist_mat, [], 2);
@@ -69,41 +64,28 @@ classdef bow_mine1 < bow_model
                 end
                 pyramid = [pyramid pyramid_cell{L}(:)' .* 2^(1-L)];
 
-                pyramid_all(iter1,:) = pyramid;
+                pyramids(iter1,:) = pyramid;
 
                 fprintf('Calculating spatial-pyramid for %s\n', fpath);
             end
-            
-            pyramids = pyramid_all;
-
+            bow.pyramids = pyramids;
         end
         
         %clusters images to create bow dictionary
-        function dict = create_dict(bow, dict_size, image_max, total_max)
-            features = zeros(128, length(bow.database.path) * image_max);
-            for iter1 = 1:length(bow.database.path)
-                fpath = database.path{iter1};
-                load(fpath);
-                p = randperm(size(feaSet.feaArr, 2));
-                start = (iter1 - 1) * image_max + 1;
-                fin = start + image_max - 1;
-                features(:, start:fin) = feaSet.feaArr(:, p(1:image_max));
-                fprintf('loading features from %s\n', bow.database.path{iter1});
-            end
-
-            dict = calculate_dict(features', dict_size, total_max);
-        end
+        %function dict = create_dict(bow, dict_size, features)
+        %    dict = calculate_dict(features', dict_size);
+        %end
     end
 end
 
-function dict = calculate_dict(features, dict_size, ndata_max)
+function dict = calculate_dict(features, dict_size)
 
-ndata = size(features,1);    
-if (ndata > ndata_max)
-    fprintf('Reducing to %d descriptors\n', ndata_max);
-    p = randperm(ndata);
-    features = features(p(1:ndata_max),:);
-end
+%ndata = size(features,1);    
+%if (ndata > ndata_max)
+%    fprintf('Reducing to %d descriptors\n', ndata_max);
+%    p = randperm(ndata);
+%    features = features(p(1:ndata_max),:);
+%end
 
 centers = zeros(dict_size, size(features,2));
 

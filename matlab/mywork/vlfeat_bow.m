@@ -5,9 +5,9 @@ classdef vlfeat_bow < bow_model
     methods
         function bow = vlfeat_bow(database_path)
             bow = bow@bow_model(database_path, '*.jpg');
-            bow.imp_name = 'vlfeat';
+            bow.imp_name = 'vlfeat_v3';
             %opts = {'Step', 6 'Sizes', 5 'FloatDescriptors', true};
-            bow.opts = {'Step', 8 'Sizes', [5] 'FloatDescriptors', false};
+            bow.opts = {'Step', 8 'Sizes', 4 'FloatDescriptors', false};
             %opts = {'Step', 3 };
         end
         
@@ -93,8 +93,8 @@ classdef vlfeat_bow < bow_model
             bow.svm_model.psix = psix;
         end
         
-        function train2(bow, C, pyramids)
-            psix = vl_homkermap(pyramids', 1, 'kchi2', 'gamma', 0.5);
+        function train2(bow, C, pyramids, kernel)
+            psix = vl_homkermap(pyramids', 1, kernel, 'gamma', 0.5);
             lambda = 1 / (C * length(bow.trdata));
             w = [];
             trdata = bow.trdata;

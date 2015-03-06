@@ -1,37 +1,57 @@
 clear
+clc
 
-trials = cell(1, 1000);
+addpath('/home/caglar/myfs/tasks/video_analysis/liblinear-1.96/matlab/');
+addpath('/home/caglar/myfs/tasks/video_analysis/libsvm-3.20/matlab/');
+addpath('/home/caglar/myfs/tasks/video_analysis/libsvm-2.9-dense_chi_square_mat');
+warning('off', 'stats:pdist2:zeroPoints');
+
 trial = {};
-trial.ind = 1;
+trial.ind = 7;
+trial.rcnt = 1;
+
+
+pooling = {'avg' ; 'max'};
+%Krange = [128 256 512 1024 2048 3072 4096 5120 6144 7168 8192];
+%Lrange = [4 3 3 3 3 2 2 2 2 2 2];
+Krange = [512 1024 2048 3072 4096 5120 6144 7168 8192];
+LHrange = [3 2 2 2 2 2 2 2 2];
+LLrange = [1 1 1 1 1 1 1 1 1];
+
+
+for pi=1:length(pooling)
+    for j=1:length(Krange)
+        trial.K = Krange(j);
+        for k=LLrange(j):LHrange(j)
+            trial.ind = trial.ind + 1;
+            trial.L = k;
+
+            for i=1:trial.rcnt
+                fname = strcat(['trials/trial_', int2str(trial.ind), '_', int2str(i), '.mat']);
+                if exist(fname, 'file')
+                    continue
+                end
+                bow = bow_mine2('images/Caltech101');
+                bow.pooling = pooling{pi};
+                res = evaluate_bow(bow, trial);
+                save(fname, 'res', '-v7.3');
+                clear res;
+            end
+        end
+    end
+end
+
+return
+
 trial.K = 256;
 trial.L = 3;
-trial.rcnt = 10;
-trial.acc = zeros(trial.rcnt, 102);
-trial.dicts = cell(1, trial.rcnt);
-trial.prlabels = cell(1, trial.rcnt);
-trial.tslabels = cell(1, trial.rcnt);
-trial.svm_models = cell(1, trial.rcnt);
-trial.imps = cell(1, trial.rcnt);
-trial.opts = cell(1, trial.rcnt);
 for i=1:trial.rcnt
-    bow = vlfeat_bow('images/Caltech101');
-    dfeatures = bow.select_features(50, 10000);
-    dict = bow.create_dict(trial.K, dfeatures);
-    bow.create_image_pyramids(bow.database.path, dict, trial.L);
-    bow.split_data3(30, 50);
-    bow.train2(10, bow.pyramids);
-    bow.predict();
+    %bow = vlfeat_bow('images/Caltech101');
+    bow = bow_mine2('images/Caltech101');
     
-    %keep results
-    trial.acc(i, :) = get_classification_accuracy(bow.database.nclass, bow.tslabels', bow.prlabels);
-    trial.dicts{i} = dict;
-    trial.prlabels{i} = bow.prlabels;
-    trial.tslabels{i} = bow.tslabels;
-    trial.svm_models{i} = bow.svm_model;
-    trial.imps{i} = bow.imp_name;
-    trial.opts{i} = bow.opts;
-    
-    save(strcat(['trials/trial_', int2str(trial.ind), '_', int2str(i), '.mat'], 'trial'));
+    res = evaluate_bow(bow, trial);
+    save(strcat(['trials/trial_', int2str(trial.ind), '_', int2str(i), '.mat']), 'res');
+    clear res;
 end
 
 %save('trials/trial_all.mat', 'trials');
