@@ -22,25 +22,25 @@ We also show that dense representations outperform equivalent keypoint based one
 
 In BOSSA and BossaNova, we propose estimating the distribution of the descriptors around each codeword. We choose a non-parametric estimation of the descriptors distribution, by computing a histogram of distances between the descriptors found in the image and each codebook element.[6] [DONE]
 
-Soft-assignment coding attenuates the effect of coding errors induced by the quantization of the descriptor space. Different soft coding strategies have been presented and evaluated by Gemert et al. [6], the most successful approach being the one they call “codeword uncertainty”. Other authors [24], [27] and [30] point out the importance of locality in the coding, an issue we will address in Section 3.4, and that leads us to a localized, “semi-soft” coding scheme[6]
+Soft-assignment coding attenuates the effect of coding errors induced by the quantization of the descriptor space. Different soft coding strategies have been presented and evaluated by Gemert et al. [6], the most successful approach being the one they call “codeword uncertainty”. Other authors [24], [27] and [30] point out the importance of locality in the coding, an issue we will address in Section 3.4, and that leads us to a localized, “semi-soft” coding scheme[6] [DONE]
 
 The first step in that normalization is motivated by the following observation: as the number of visual words increases, BOSSA becomes sparser. That is also the case for most BoW-like representations: Perronnin et al. [12] have also observed that effect, which is indeed a direct consequence of the ratio between the number of local descriptors and the mid-level representation vector size. They observe that similarities become less reliable when the vector signatures become too sparse, proposing a power normalization to alleviate that drawback. Therefore, we choose to incorporate that normalization into the BossaNova representation.[6]
 
 Table 3 also shows the comparison with published results. The comparison with [13] is particularly relevant, because we employ the same low-level descriptor extraction as them, although our representation ends up being more compact. The LLC method of [30] is evaluated with HOG descriptors. LLC was also evaluated on extremely dense SIFT descriptors (sampling step of 3 pixels, compared to 16 used in our experiments), roughly 70,000 per image, obtaining a MAP of 53.8% with a codebook of 4,000 words [20].[6]
 
-The recognition of texture and object categories is one of the most challenging problems in computer vision, especially in the presence of intra-class varia- tion, clutter, occlusion, and pose changes[7]
+The recognition of texture and object categories is one of the most challenging problems in computer vision, especially in the presence of intra-class varia- tion, clutter, occlusion, and pose changes[7] [DONE]
 
-rderless , i.e., they retain only the frequencies of the individual features, and discard all information about their spatial layout[7]
+rderless , i.e., they retain only the frequencies of the individual features, and discard all information about their spatial layout[7] [DONE]
 
-Results for the EMD kernel and the χ 2 k ernel are comparable. Either of the kernels seem to be a good choice for our framework, provided that a suitable vocabulary can be built efficiently[7]
+Results for the EMD kernel and the χ 2 k ernel are comparable. Either of the kernels seem to be a good choice for our framework, provided that a suitable vocabulary can be built efficiently[7] [DONE]
 
-The spatial pyramids provide a reasonable cover over the image space with scale information, and most existing classification methods either use them directly, or use slightly modified/simplified versions[8]
+The spatial pyramids provide a reasonable cover over the image space with scale information, and most existing classification methods either use them directly, or use slightly modified/simplified versions[8] [DONE]
 
-We illustrate the pipeline from raw images to the prediction of class labels in Figure 1. Specifically, starting with an input image I, two stages are usually adopted to generate the global feature, as we formally define below.[8]
+We illustrate the pipeline from raw images to the prediction of class labels in Figure 1. Specifically, starting with an input image I, two stages are usually adopted to generate the global feature, as we formally define below.[8] [DONE]
 
-In the coding step, we extract local image patches, and encode each patch to  activation values based on a codebook of size  (learned via a separate dictionary learning step). These activations are typically binary (in the case of vector quantization) or continuous (in the case of e.g. sparse coding). It is generally believed that having an overcomplete ( the dimension of patches) codebook while keeping the activations sparse helps classification, especially when linear classifiers are used in the later steps.[8]
+In the coding step, we extract local image patches, and encode each patch to  activation values based on a codebook of size  (learned via a separate dictionary learning step). These activations are typically binary (in the case of vector quantization) or continuous (in the case of e.g. sparse coding). It is generally believed that having an overcomplete ( the dimension of patches) codebook while keeping the activations sparse helps classification, especially when linear classifiers are used in the later steps.[8] [DONE]
 
-Since the coding result are highly overcomplete and highly redundant, the pooling layer aggregates the activations over certain spatial regions of the image to obtain an  dimensional vector  as the global representation of the image. Each dimension of the pooled feature  is obtained by taking the activations of one code in a specific spatial region (shown as the red rectangular in Figure 1), and performing a predefined operator (usually average or max) on the set of activations.[8]
+Since the coding result are highly overcomplete and highly redundant, the pooling layer aggregates the activations over certain spatial regions of the image to obtain an  dimensional vector  as the global representation of the image. Each dimension of the pooled feature  is obtained by taking the activations of one code in a specific spatial region (shown as the red rectangular in Figure 1), and performing a predefined operator (usually average or max) on the set of activations.[8] [DONE]
 
 The idea of feature pooling originates in Hubel and Wiesel’s seminal work on complex cells in the visual cortex ( 1962 ), and is re- lated to Koenderink’s concept of locally orderless im- ages ( 1999 )[9]
 
@@ -64,7 +64,7 @@ o address this challenge, we propose a fra mework that learns object detectors u
 
 The most frequent features, as noted by Jurie and Triggs [12] and others [3], [23], are not necessarily the most discriminative[13] [DONE]
 
-This paper presented a principal improvement on the popular codebook model for scene classification. The traditional codebook model uses hard assignment to represent image features with codewords. We replaced this basic property of the codebook approach by introducing uncertainty modeling, which is appropriate as discrete feature vectors are only capable of capturing part of the intrinsic variation in visual appearance. This uncertainty is achieved with techniques based on kernel density estimation[13]
+This paper presented a principal improvement on the popular codebook model for scene classification. The traditional codebook model uses hard assignment to represent image features with codewords. We replaced this basic property of the codebook approach by introducing uncertainty modeling, which is appropriate as discrete feature vectors are only capable of capturing part of the intrinsic variation in visual appearance. This uncertainty is achieved with techniques based on kernel density estimation[13] [DONE]
 
 computes a histogram or take the average of the codes over the region (these two methods are equivalent after normalization):[14]
 
