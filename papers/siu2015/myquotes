@@ -1,0 +1,127 @@
+Pooling is the operation which involves aggregating several local descriptor encodings into a single representation.[1] [DONE]
+
+This process can often be broken down into two steps: (1) a coding step, which performs a pointwise transformation of the descriptors into a representation better adapted to the task, and (2) a pooling step, which summarizes the coded features over larger neighborhoods.[2] [DONE]
+
+the nonlinear SVM has to pay a computational complexity and a memory complexity  in the training phase, where  is the training size. Furthermore, since the number of support vectors grows linearly with , the computational complexity in testing is .[3] [DONE]
+
+uses max spatial pooling that is more robust to local spatial translations and more biological plausible [24].[3] [DONE]
+
+Third, research in image statistics clearly reveals that image patches are sparse signals.[3] [DONE]
+
+Our experiment shows that linear kernel on histograms leads to always substantially worse results, partially due to the high quantization error of VQ[3] [DONE]
+
+For example, in 4, the underlying pooling function is defined as the averaging function, yielding the histogram feature.[3] [DONE]
+
+The computed statistics by max pooling are more salient and robust to local translations[3] [DONE]
+
+and then summarizing the distribution of the codes in the cells of a spatial pyramid by some well-chosen aggregation statistic (pooling step).[4] (??? Ask the locals?)
+
+comparison: %79 performance at multiple scales and 4 point step size, %70 performance at single scale and 8 point step size.[4] [DONE]
+
+We also show that dense representations outperform equivalent keypoint based ones on these tasks[5] [DONE]
+
+In BOSSA and BossaNova, we propose estimating the distribution of the descriptors around each codeword. We choose a non-parametric estimation of the descriptors distribution, by computing a histogram of distances between the descriptors found in the image and each codebook element.[6] [DONE]
+
+Soft-assignment coding attenuates the effect of coding errors induced by the quantization of the descriptor space. Different soft coding strategies have been presented and evaluated by Gemert et al. [6], the most successful approach being the one they call “codeword uncertainty”. Other authors [24], [27] and [30] point out the importance of locality in the coding, an issue we will address in Section 3.4, and that leads us to a localized, “semi-soft” coding scheme[6]
+
+The first step in that normalization is motivated by the following observation: as the number of visual words increases, BOSSA becomes sparser. That is also the case for most BoW-like representations: Perronnin et al. [12] have also observed that effect, which is indeed a direct consequence of the ratio between the number of local descriptors and the mid-level representation vector size. They observe that similarities become less reliable when the vector signatures become too sparse, proposing a power normalization to alleviate that drawback. Therefore, we choose to incorporate that normalization into the BossaNova representation.[6]
+
+Table 3 also shows the comparison with published results. The comparison with [13] is particularly relevant, because we employ the same low-level descriptor extraction as them, although our representation ends up being more compact. The LLC method of [30] is evaluated with HOG descriptors. LLC was also evaluated on extremely dense SIFT descriptors (sampling step of 3 pixels, compared to 16 used in our experiments), roughly 70,000 per image, obtaining a MAP of 53.8% with a codebook of 4,000 words [20].[6]
+
+The recognition of texture and object categories is one of the most challenging problems in computer vision, especially in the presence of intra-class varia- tion, clutter, occlusion, and pose changes[7]
+
+rderless , i.e., they retain only the frequencies of the individual features, and discard all information about their spatial layout[7]
+
+Results for the EMD kernel and the χ 2 k ernel are comparable. Either of the kernels seem to be a good choice for our framework, provided that a suitable vocabulary can be built efficiently[7]
+
+The spatial pyramids provide a reasonable cover over the image space with scale information, and most existing classification methods either use them directly, or use slightly modified/simplified versions[8]
+
+We illustrate the pipeline from raw images to the prediction of class labels in Figure 1. Specifically, starting with an input image I, two stages are usually adopted to generate the global feature, as we formally define below.[8]
+
+In the coding step, we extract local image patches, and encode each patch to  activation values based on a codebook of size  (learned via a separate dictionary learning step). These activations are typically binary (in the case of vector quantization) or continuous (in the case of e.g. sparse coding). It is generally believed that having an overcomplete ( the dimension of patches) codebook while keeping the activations sparse helps classification, especially when linear classifiers are used in the later steps.[8]
+
+Since the coding result are highly overcomplete and highly redundant, the pooling layer aggregates the activations over certain spatial regions of the image to obtain an  dimensional vector  as the global representation of the image. Each dimension of the pooled feature  is obtained by taking the activations of one code in a specific spatial region (shown as the red rectangular in Figure 1), and performing a predefined operator (usually average or max) on the set of activations.[8]
+
+The idea of feature pooling originates in Hubel and Wiesel’s seminal work on complex cells in the visual cortex ( 1962 ), and is re- lated to Koenderink’s concept of locally orderless im- ages ( 1999 )[9]
+
+This is done by vector- quantizing feature descriptors and by computing the code- word counts over local or global areas ( Sivic & Zisserman , 2003 ; Lazebnik et al. , 2006 ; Zhang et al. , 2007 ; Yang et al. , 2009 ), which is equivalent to average-pooling vectors con- taining a single 1 at the index of the codeword, and 0 ev- erywhere else (1-of- k codes).[9]
+
+In general terms, the objective of pooling is to transform the joint feature representation into a new, more usable one that preserves important information while discarding ir- relevant detail, the crux of the matter being to determine what falls in which category.[9]
+
+chieving invariance to changes in position or lighting conditions, robustness to clutter, and compactne ss of representation, are all common goals of pooling[9]
+
+Let us examine the contribution of a single feature in a bag-of-features representation (i.e., if the unpooled dat a is a P × k matrix of 1-of- k codes taken at P locations, we extract a single P -dimensional column v of 0s and 1s, in- dicating the absence or presence of the feature at each lo- cation). For simplicity, we model the P components of v as i.i.d. Bernoulli random variables. The independence as- sumption is clearly false since nearby image features are strongly correlated, but the analysis of this simple model nonetheless yields useful predictions that can be verified empirically. The vector v is reduced by a pooling operation f to a single scalar f ( v ) (which would be one component of the k -dimensional representation using all features, e.g., one bin in a histogram). We consider two pooling types: average pooling f a ( v ) = 1 P P P i =1 v i , and max pooling f m ( v ) = max i v i .[9]
+
+In this paper, we review a number of techniques for generating mid-level features, including two variants of Soft Assignment, Locality-constrained Linear Coding, and Sparse Coding.[10]
+
+With max-pooling, this “localized” soft-assignment coding1 surprisingly catches up with or even outperforms the sparse or local coding schemes while maintaining its computational advantage.[11]
+
+As shown above, max-pooling only estimates the probability of the presence of a visual word b in an image , It ignores the frequency of the occurrence of the word. In the following, we propose a “mix-order” max-pooling to incorporate this information[11]
+
+Moreover, it even outperforms the sparse coding. Actually, merely achieving a performance comparable to sparse coding has made our method more attractive because of its much lower computational overhead. [11]
+
+o address this challenge, we propose a fra mework that learns object detectors using only image-level class label s, or so-called weak labels. We validate our approach on the challenging PAS CAL07 dataset. Our learned detectors are comparable in accuracy w ith state- of-the-art weakly supervised detection methods. More impo rtantly, the resulting OCP approach significantly outperforms SPM-base d pooling in image classification[12]
+
+The most frequent features, as noted by Jurie and Triggs [12] and others [3], [23], are not necessarily the most discriminative[13] [DONE]
+
+This paper presented a principal improvement on the popular codebook model for scene classification. The traditional codebook model uses hard assignment to represent image features with codewords. We replaced this basic property of the codebook approach by introducing uncertainty modeling, which is appropriate as discrete feature vectors are only capable of capturing part of the intrinsic variation in visual appearance. This uncertainty is achieved with techniques based on kernel density estimation[13]
+
+computes a histogram or take the average of the codes over the region (these two methods are equivalent after normalization):[14]
+
+caglar: This paper shows that not all of the datasets react well to multiple features.[15]
+
+These activations are typically binary (in the case of vector quantization) or continuous (in the case of e.g. sparse coding), and it is generally believed that having an over-complete ( K > the dimension of patches) dictionary while keeping the activations sparse helps clas- sification, especially when linear classifiers are used in the later steps.[16]
+
+Each dimension of the pooled feature x i is obtained by taking the activations of the corresponding code in the given spatial region (also called receptive field in the literature), and performing a prede- fined operator (usually average or max) on the set of activa- tions[16]
+
+Since the coding result are highly over- complete and highly redundant, the pooling layer aggre- gates the activations over a spatial region of the image to obtain a K dimensional vector x [16]
+
+The typical process to build one image feature from local features can be broken down into two steps [5]: 1) coding of local features and 2) spatial pooling of semi-local features. For each step, the embedding of spatial information has been well studied.[17]
+
+The four main implementation choices are thus how to sample patches, how to describe them, how to characterize the resulting distributions and how to classify images based on the result.[18]
+
+The problem is challenging because the appearance of object instances varies sub- stantially owing to changes in pose, imaging and lighting conditions, occlusions and within-class shape variations[18]
+
+Object recognition is one of the core problems in computer vision, and it is a very extensively investigated topic. Due to appearance variabilities caused for example by non-rigidity, background clutter, differences in viewpoint, orientation, scale or lighting conditions, it is a hard problem.[19]
+
+To make a concrete argument, we show the ScSPM computation time for encod- ing one image as well as the performance (in Average Precision) for dictionaries of dierent sizes on PASCAL VOC 2007 dataset [20], where 30,000 local descrip- tors are extracted from each image.[20]
+
+As observed from our experiment, using a codebook with 2048 entries, a  image requires only 0.24 second on average for processing (including dense local descriptors extraction, LLC coding and SPM pooling to get the final representation). This efficiency significantly adds to the practical values of LLC for many real applications[21]
+
+When  is constrained to the set of 0–1 vectors with only a single entry equal to 1, the encoding method is known as the hard assignment.[22]
+
+Feature pooling is essentially to map the response vector  into a statistic value  via some spatial pooling operation , where  is used to summarize the joint distribution of visual features over the region of interest.[22]
+
+max pooling tex: $$f_{m}({\bf v})=\Vert {\bf v}\Vert _{\infty}=\max_{m}\ v_{m}.\eqno{\hbox{(3)}}$$[22]
+
+avg pooling tex: $$f_{a}({\bf v})={1\over M}\Vert {\bf v}\Vert_{1}={1\over M}\sum_{m=1}^{M}v_{m}.\eqno{\hbox{(2)}}$$[22]
+
+Also GLP outperforms all the single type of feature based methods. The performance has already exceeded the best one (82.3%) ever reported on the Caltech-101 dataset in [14].[22]
+
+Comparison of different encoding methods on KTH: Vector Quanti- zation(VQ), Soft-assignment Encoding(SA-k), Fisher Kernel Encoding(FK), Local- constrain Linear Encoding(LLC) and Sparse Encoding(SPC)[23]
+
+Comparison our proposed methods with state of the art on HMDB51[23]
+
+[1] generalized max pooling
+[2] learning mid-level features for recognition
+[3] linear spatial pyramid matching using sparse coding for image classification
+[4] semantic segmentation with second-order pooling
+[5] creating efficient codebooks for visual recognition
+[6] pooling in image representation: the visual codeword point of view
+[7] local features and kernels for classification of texture and object categories: a comprehensive study
+[8] beyond spatial pyramids: receptive field learning for pooled image features
+[9] a theoretical analysis of feature pooling in visual recognition
+[10] comparison of mid-level feature coding approaches and pooling strategies in visual concept detection
+[11] in defense of soft-assignment coding
+[12] object-centric spatial pooling for image classification
+[13] visual word ambiguity
+[14] ask the locals: multi-way local pooling for image recognition
+[15] spatial pooling of heterogeneous features for image classification
+[16] pooling-invariant image feature learning
+[17] discriminative spatial pyramid
+[18] sampling strategies for bag-of-features image classification
+[19] scalable recognition with a vocabulary tree
+[20] efficient highly over-complete sparse coding using a mixture model
+[21] locality-constrained linear coding for image classification
+[22] geometric ℓ p-norm feature pooling for image classification
+[23] a comparative study of encoding, pooling and normalization methods for action recognition

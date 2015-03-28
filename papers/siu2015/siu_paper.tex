@@ -448,9 +448,9 @@ Bag-of-words model can be represented with four image processing steps. First, i
 
 In this work we will compare performance of sparse codes based soft assignment and vector quantization of SIFT features. We will use 3 different benchmark databases for comparison.
 
-\section {Classification Pipeline}
+\section {Related Work}
 
-In a typical BoW based image classification pipeline, 4 distinct operations performed on images. Local images features are extracted as a first step. Later on these features are encoded in a more suitable manner for classification. In the third step encoded features are pooled to create final image representation. In the last step, image representing descriptors is classified using a suitable classifier. This process is outlined in Figure 1.
+In a typical BoW based image classification pipeline, 4 distinct operations performed on images. Local images features are extracted as a first step. Later on, these features are encoded in a more suitable manner for classification. In the third step encoded features are pooled to create final image representation by summarizing coded features over larger neighborhoods. In the last step, image representing descriptors is classified using a suitable classifier. This process is outlined in Figure 1.
 
 \begin{figure}[h]
 \centering
@@ -459,13 +459,57 @@ In a typical BoW based image classification pipeline, 4 distinct operations perf
 \label{figure1}
 \end{figure}
 
-\subsection {Feature extraction}
-\subsection {Feature coding(encoding)}
+\subsection{Feature Extraction}
+
+Many papers show that dense feature extraction outperforms interest-point based extraction on visual classification tasks~\cite{6248076},~\cite{1541309}.
+
+\subsection{Encoding}
+
+Feature encoding, or coding, is the process of re-coding image descriptors to a different representation. Encoding step does not alter the local nature of the image features, each feature is transformed locally by transforming descriptors pointwise~\cite{5539963}. This encoding process aims to derive a more suitable feature representation for classification process.
+
+One alternative to overcome high quantization errors induced by vector quantization is to use soft-assignment codings. Gemert et al. reaches a soft-assignment coding by introducing uncertainty into vector quantization~\cite{5128909}.
+
+This paper presented a principal improvement on the popular codebook model for scene classification. The traditional codebook model uses hard assignment to represent image features with codewords. We replaced this basic property of the codebook approach by introducing uncertainty modeling, which is appropriate as discrete feature vectors are only capable of capturing part of the intrinsic variation in visual appearance. This uncertainty is achieved with techniques based on kernel density estimation[13]
+
+Sparse coding has some attractive properties when compared to vector quantization(VQ). One of them is sparse coding(SC) has a lower reconstruction error. This can be easily verified by comparing vectoral representations of both VQ and SC. VQ has a binary representation where each cell of encoded representation is represented either by ones of zeros whereas SC assigns continious values to vector cells. One should note that SC uses more bits to represent local feature even VQ and SC uses same dictionary sizes. Another attractive property of SC is that it better captures salient properties of images. Furthermore, image patches are better represented with sparse signals~\cite{5539963}.
+
+Encoding process may be skipped in total if computationally more advanced pooling strategies are used. One example is ~\cite{SecondOrderPooling} where authors prefer not to encode raw SIFT descriptors but use as is in the pooling step.
+
 \subsection {Pooling}
-Pooling is the operation
-which involves aggregating several local descriptor encodings
-into a single representation
+
+Pooling can be defined as the operation which creates global image representation from underlying local feature encodings. Roots of feature pooling concept can be found in very early studies dating back to 1960's and attributed mostly to the concept of locally orderless images~\cite{boureau2010theoretical}. Pooling aggregates local encodings into a more compact representation. Due to this compacting nature, it may lead to information loss as well as some form of invariance to feature perturbations~\cite{6909713}. Lazebnik et al. showed finer grained pooling using spatial pyramids on top of generic bag-of-features implementations ~\cite{1238663} yields better classification results. Wang et al. offered a different local pooling strategy which may furher improve classification results on top of spatial pyramids~\cite{5540018}. Several other pooling methodologies are offered in various papers~\cite{Avila2013453},~\cite{6126555},~\cite{ObjectCentricPooling},~\cite{6248076},~\cite{SecondOrderPooling}. In their theoretical analysis of feature pooling~\cite{boureau2010theoretical}, Boureu et al. argue that using all samples may not be optimal and pooling close descriptors either in feature space or spatial domain may yield better results~\cite{6909713}.
+
+Among several different poolings strategies present in the literature, we are interested in two of which attracted most attention. One of them is summed or average pooling which yields a histogram like representation~\cite{5539963} and the other is maximum pooling.
+
+Maximum spatial pooling is said to be more robust to spatial translations than the average pooling~\cite{5206757}. Max pooling is attributed to be more biological plausible and inspired by several authors. However, we found this argument as a debatable one. We know that both max and average pooling are employed in several stages of visual cortex~\cite{6909713}. On the other hand, this doesn't prevent max pooling being a very good pooling strategy, beating average pooling in various configurations~\cite{5539963}. Intiuatively unexpected success of max pooling can be explained by it being more salient and robust to local translations~\cite{5539963}.
+
+In addition to direct maximum and average pooling approaches, several implementations suggest using modified alternatives. ~\cite{Avila2013453} uses feature distribution around each codeword in addition to average pooling. They employ a non-parametric estimation techinque for feature distribution. However, we should note that one must take into consideration while applying distribution based techniques that most frequent features are not always the most discriminative ones~\cite{5128909}.
+
+
+~\cite{McCannL12} suggests using of totally different 
+
 \subsection {Classification}
+
+Support vector machines(SVMs) are one of the mostly adapted,if not the most, classifiers in the literature for the task of classifing final image representation. 
+
+Different non-linear and linear kernels employed for classification of different representations. Nonlinear SVMs are known to have higher complexity than linear SVMs ~\cite{5206757} and they are not preferred for large image databases.
+
+When using vector quantization, linear kernels deliver substantially worse results~\cite{1641019}~\cite{5539963} Yang et al. states this is due to high quantization error in encoding step.
+
+\section {Experimental Results}
+
+\subsection {State-of-the-art}
+
+~\cite{SecondOrderPooling} : comparison: \%79 performance at multiple scales and 4 point step size, \%70 performance at single scale and 8 point step size. We do \%77 at multiple scales.
+
+\subsection {Dictionary construction}
+\subsection {Feature extraction}
+In this work we will not look into details of feature extraction methodologies. One can employ different feature types, sampling strategies, multi-scale extraction, multi-feature approaches during feature extraction. In our work we will investigate performance of one type image feature, SIFT features. Our features will be extracted in a single scale with dense sampling strategy.[Bu results icin daha mi uygun acaba?]
+\subsection {Feature encoding}
+
+\subsection {Pooling}
+
+Note1: as well as geometric lp norm pooling, mix-order max pooling is suggested by people.
 
 \clearpage
 
@@ -601,30 +645,8 @@ Burada Pascal VOC 2007 anlatalim.
 
 % (should never be an issue)
 
-\begin{thebibliography}{1}
-
-\bibitem{paper1}
-S. Lazebnik, C. Schmid, J. Ponce, ``Beyond Bags of Features: Spatial Pyramid Matching for Recognizing Natural Scene Categories", Proceedings of the 2006
-IEEE Computer Society Conference on Computer Vision and Pattern Recognition, 2006.
-
-\bibitem{paper2}
-Y. Zhang, R. Jin, Z. Zhou, ``Understanding bag-of-words model: A Statistical Framework", International Journal of Machine Learning and Cybernetics
-December 2010, Volume 1, Issue 1-4, pp 43-52
-
-\bibitem{paper3}
-J. Yang, K. Yu, Y. Gong, T. Huang, ``Linear spatial pyramid matching using sparse coding for image classification", 
-Computer Vision and Pattern Recognition ON IEEE Conference, 2009.
-
-\bibitem{paper4}
-A. Coates, A. Y. Ng, ``The Importance of Encoding Versus Training with Sparse Coding and Vector Quantization", Proceedings of the 28th International Conference on Machine Learning, 2011.
-
-\bibitem{paper5}
-J. Wang, J. Yuan, Z. Chen, Y. Wu, ``Spatial Locality-Aware Sparse Coding and Dictionary Learning", Asian Conference on Machine Learning, 2012.
-
-\bibitem{paper6}
-K. Grauman, T. Darrell, ``The pyramid match kernel: Discriminative classification with sets of image features", 2005.
-
-\end{thebibliography}
+\bibliographystyle{plain}
+\bibliography{siu_paper}
 
 % that's all folks
 \end{document}
